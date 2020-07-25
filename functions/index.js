@@ -4,9 +4,10 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 exports.onNewAnnouncement = functions.database
-  .ref("announcements")
+  .ref("/announcements")
   .onCreate((snapshot, _context) => {
     const messageData = snapshot.val();
+    console.log(messageData);
     const text = messageData.join(" ");
     console.log(text);
 
@@ -22,14 +23,13 @@ exports.onNewAnnouncement = functions.database
       },
     };
 
-    admin
+    return admin
       .messaging()
       .sendToTopic(topic, payload)
-      // eslint-disable-next-line promise/always-return
       .then((response) => {
-        console.log("Successfully sent message:", response);
+        return console.log("Successfully sent message:", response);
       })
       .catch((error) => {
-        console.log("Error sending message:", error);
+        return console.log("Error sending message:", error);
       });
   });
