@@ -4,12 +4,10 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 exports.onNewAnnouncement = functions.database
-  .ref("/announcements")
+  .ref("/announcements/{date}")
   .onCreate((snapshot, _context) => {
     const messageData = snapshot.val();
-    console.log(messageData);
-    const text = messageData.join(" ");
-    console.log(text);
+    const text = messageData.join("\n");
 
     var topic = "announcements";
     const payload = {
