@@ -17,7 +17,7 @@ exports.onNewAnnouncement = functions.database
         sound: "default",
       },
       data: {
-        clickAction: "FLUTTER_NOTIFICATION_CLICK",
+        FLUTTER_NOTIFICATION_CLICK: 1,
       },
     };
 
