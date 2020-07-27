@@ -7,17 +7,19 @@ exports.onNewAnnouncement = functions.database
   .ref("/announcements/{date}")
   .onCreate((snapshot, _context) => {
     const messageData = snapshot.val();
+    const date = snapshot.key;
     const text = messageData.join("\n");
+    text.replace(/\n+$/, "");
 
     var topic = "announcements";
     const payload = {
       notification: {
-        title: "Today's Announcements",
+        title: "New Announcements for " + date.substr(date.indexOf(" ") + 1),
         body: text,
         sound: "default",
       },
       data: {
-        FLUTTER_NOTIFICATION_CLICK: 1,
+        FLUTTER_NOTIFICATION_CLICK: "1",
       },
     };
 
