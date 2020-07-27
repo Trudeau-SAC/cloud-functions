@@ -17,9 +17,11 @@ exports.onNewAnnouncement = functions.database
         title: "New Announcements for " + date.substr(date.indexOf(" ") + 1),
         body: text,
         sound: "default",
+        tag: "announcements",
       },
       data: {
         FLUTTER_NOTIFICATION_CLICK: "1",
+        screen: "/home",
       },
     };
 
