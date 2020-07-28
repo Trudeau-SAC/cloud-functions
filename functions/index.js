@@ -8,8 +8,17 @@ exports.onNewAnnouncement = functions.database
   .onCreate((snapshot, _context) => {
     const messageData = snapshot.val();
     const date = snapshot.key;
-    const text = messageData.join("\n");
+    var text = messageData.join("\n");
     text.replace(/\n+$/, "");
+
+    if (text.length > 3900) {
+      text = text.substr(0, 3900);
+      var ind = text.indexOf("\n");
+      if (ind > 3890) {
+        text = text.substr(0, ind);
+      }
+      text += "...";
+    }
 
     var topic = "announcements";
     const payload = {
