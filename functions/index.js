@@ -11,10 +11,10 @@ exports.onNewAnnouncement = functions.database
     var text = messageData.join("\n");
     text.replace(/\n+$/, "");
 
-    if (text.length > 3900) {
-      text = text.substr(0, 3900);
+    if (text.length > 1900) {
+      text = text.substr(0, 1900);
       var ind = text.indexOf("\n");
-      if (ind > 3890) {
+      if (ind > 1890) {
         text = text.substr(0, ind);
       }
       text += "...";
