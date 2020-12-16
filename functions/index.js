@@ -48,28 +48,32 @@ exports.onNewAnnouncement = functions.database
 exports.onInclementWeatherDay = functions.database
   .ref("/schedule/")
   .onUpdate((snapshot, _context) => {
-    var topic = "snowDay";
-    const payload = {
-      notification: {
-        title: "Inclement Weather Day",
-        body:
-          "Transportation is cancelled and schools are be closed to students today. If you are attending secondary school in person, you will be moving to virtual learning for the day.",
-        sound: "default",
-        tag: "snowDay",
-      },
-      data: {
-        FLUTTER_NOTIFICATION_CLICK: "1",
-        screen: "/home",
-      },
-    };
+    const date = snapshot.val();
+    if (date.contains("inclement")) {
+      var topic = "snowDay";
+      const payload = {
+        notification: {
+          title: "Inclement Weather Day",
+          body:
+            "Transportation is cancelled and schools are be closed to students today. If you are attending secondary school in person, you will be moving to virtual learning for the day.",
+          sound: "default",
+          tag: "snowDay",
+        },
+        data: {
+          FLUTTER_NOTIFICATION_CLICK: "1",
+          screen: "/home",
+        },
+      };
 
-    return admin
-      .messaging()
-      .sendToTopic(topic, payload)
-      .then((response) => {
-        return console.log("Successfully sent message:", response);
-      })
-      .catch((error) => {
-        return console.log("Error sending message:", error);
-      });
+      return admin
+        .messaging()
+        .sendToTopic(topic, payload)
+        .then((response) => {
+          return console.log("Successfully sent message:", response);
+        })
+        .catch((error) => {
+          return console.log("Error sending message:", error);
+        });
+    }
+    return console.log("Not an inclement weather day");
   });
