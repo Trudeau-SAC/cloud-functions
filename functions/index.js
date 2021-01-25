@@ -8,23 +8,11 @@ exports.onNewAnnouncement = functions.database
   .onCreate((snapshot, _context) => {
     const messageData = snapshot.val();
     const date = snapshot.key;
-    var text = messageData.join("\n");
-    text.replace(/\n+$/, "");
-
-    if (text.length > 1900) {
-      text = text.substr(0, 1900);
-      var ind = text.indexOf("\n");
-      if (ind > 1890) {
-        text = text.substr(0, ind);
-      }
-      text += "...";
-    }
-
     var topic = "announcements";
     const payload = {
       notification: {
         title: "New Announcements for " + date.substr(date.indexOf(" ") + 1),
-        body: text,
+        body: messageData.join("\n"),
         sound: "default",
         tag: "announcements",
       },
