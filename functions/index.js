@@ -51,7 +51,7 @@ exports.oneNewNotification = functions.database
       },
     };
 
-    if (messageData.has("screen")) {
+    if (messageData.hasOwnProperty("screen")) {
       payload["data"]["screen"] = messageData["screen"];
     }
 
