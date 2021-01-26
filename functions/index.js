@@ -17,7 +17,7 @@ exports.onNewAnnouncement = functions.database
         tag: "announcements",
       },
       data: {
-        FLUTTER_NOTIFICATION_CLICK: "1",
+        click_action: "FLUTTER_NOTIFICATION_CLICK",
         screen: "/home",
       },
     };
@@ -46,7 +46,7 @@ exports.oneNewNotification = functions.database
         tag: messageData["topic"],
       },
       data: {
-        FLUTTER_NOTIFICATION_CLICK: "1",
+        click_action: "FLUTTER_NOTIFICATION_CLICK",
         index: snapshot.key,
       },
     };
