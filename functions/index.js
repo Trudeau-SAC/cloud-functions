@@ -33,6 +33,8 @@ exports.onNewAnnouncement = functions.database
       });
   });
 
+//firebase deploy --only functions
+//firebase deploy --only functions:oneNewNotification
 exports.oneNewNotification = functions.database
   .ref("/notifications/{index}")
   .onCreate((snapshot, _context) => {
@@ -55,7 +57,7 @@ exports.oneNewNotification = functions.database
     }
 
     if (messageData["title"] !== "N/A") {
-      messageData["notification"]["title"] = messageData["title"];
+      payload["notification"]["title"] = messageData["title"];
     }
 
     return admin
