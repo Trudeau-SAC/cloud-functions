@@ -40,7 +40,6 @@ exports.oneNewNotification = functions.database
     var topic = messageData["topic"];
     const payload = {
       notification: {
-        title: messageData["title"],
         body: messageData["message"],
         sound: "default",
         tag: messageData["topic"],
@@ -53,6 +52,10 @@ exports.oneNewNotification = functions.database
 
     if (messageData["screen"] !== "N/A") {
       payload["data"]["screen"] = messageData["screen"];
+    }
+
+    if (messageData["title"] !== "N/A") {
+      messageData["notification"]["title"] = messageData["title"];
     }
 
     return admin
