@@ -70,3 +70,33 @@ exports.oneNewNotification = functions.database
         return console.log("Error sending message:", error);
       });
   });
+
+exports.onNewClub = functions.database
+  .ref("/clubs/{name}")
+  .onCreate((snapshot, _context) => {
+    const messageData = snapshot.val();
+    const name = snapshot.key;
+    var topic = "clubs";
+    const payload = {
+      notification: {
+        title: "Club of the Week: " + name,
+        body: messageData["Text"],
+        sound: "default",
+        tag: "clubs",
+      },
+      data: {
+        click_action: "FLUTTER_NOTIFICATION_CLICK",
+        screen: "/home-clubs",
+      },
+    };
+
+    return admin
+      .messaging()
+      .sendToTopic(topic, payload)
+      .then((response) => {
+        return console.log("Successfully sent message:", response);
+      })
+      .catch((error) => {
+        return console.log("Error sending message:", error);
+      });
+  });
