@@ -18,7 +18,7 @@ exports.onNewAnnouncement = functions.database
       },
       data: {
         click_action: "FLUTTER_NOTIFICATION_CLICK",
-        screen: "/home",
+        screen: "/home-announcements",
       },
     };
 
