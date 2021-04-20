@@ -7,8 +7,11 @@ admin.initializeApp();
 
 // redeploy all functions: firebase deploy --only functions
 
-// Trigger for new entry in announcements index in RTDB
-// deploy: firebase deploy --only functions:onNewAnnouncement
+/**
+ *  Announcements notification
+ *  Sends a notification upon new entry in announcements index in RTDB
+ * Deploy: firebase deploy --only functions:onNewAnnouncement
+ */
 exports.onNewAnnouncement = functions.database
   .ref("/announcements/{date}")
   .onCreate((snapshot, _context) => {
@@ -42,7 +45,11 @@ exports.onNewAnnouncement = functions.database
       });
   });
 
-//firebase deploy --only functions:oneNewNotification
+/**
+ * Regular notification
+ * Sends a notification upon new entry in notifications index in RTDB
+ * Deploy: firebase deploy --only functions:oneNewNotification
+ */
 exports.oneNewNotification = functions.database
   .ref("/notifications/{index}")
   .onCreate((snapshot, _context) => {
@@ -84,7 +91,11 @@ exports.oneNewNotification = functions.database
       });
   });
 
-//firebase deploy --only functions:onNewClub
+/**
+ * Club of the Week notification
+ * Sends a notification upon new entry in clubs index in RTDB
+ * Deploy: firebase deploy --only functions:onNewClub
+ */
 exports.onNewClub = functions.database
   .ref("/clubs/{name}")
   .onCreate((snapshot, _context) => {
