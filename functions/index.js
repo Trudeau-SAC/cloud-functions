@@ -16,8 +16,9 @@ exports.onNewAnnouncement = functions.database
   .ref("/announcements/{date}")
   .onCreate((snapshot, _context) => {
     // store child value
-    const messageData = snapshot.val();
+    const messageDataUnprocessed = snapshot.val();
     const date = snapshot.key;
+    const messageData = messageDataUnprocessed.filter(link => !link.startsWith("https://drive.google.com"));
     var topic = "announcements";
     // declare payload
     const payload = {
