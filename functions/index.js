@@ -24,7 +24,7 @@ exports.onNewAnnouncement = functions.database
     const payload = {
       notification: {
         title: "New Announcements for " + date.substr(date.indexOf(" ") + 1),
-        body: messageData.join("\n"),
+        body: messageData.slice(2).join("\n"),
         sound: "default",
         tag: "announcements",
       },
